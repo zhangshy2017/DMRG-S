@@ -2,7 +2,7 @@
 
 This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
 
-The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. THe environment setup requires the installation of the `ITensor.jl` package. The source code consists of three Python scripts:
+The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package. The source code consists of three Python scripts:
 - `Clifford_circuit_operations.py`
 - `Readout_error_correction_functions.py`
 - `1D_cluster_state_stabilizer.py`
