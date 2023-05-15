@@ -7,7 +7,7 @@ using ITensors.HDF5
 
 let
    N = 20
-   maxD = 100
+   maxD = 60
    initial_energy = -1.3
    U = 1000
    nk=100

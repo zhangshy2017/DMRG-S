@@ -3,15 +3,15 @@
 This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
 
 The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package. The source code consists of three Python scripts:
-- `Clifford_circuit_operations.py`
-- `Readout_error_correction_functions.py`
-- `1D_cluster_state_stabilizer.py`
+- `projmpo.jl`
+- `abstractprojmpo.jl`
+- `dmrgs.jl`
 
-`Clifford_circuit_operations.py` realizes all the operations of Clifford gates and measuerments on computational bases. The single- and two-qubit depolarization channels are also realized by probabilistic quantum trajectories. We mainly follow the details in [<sup>2</sup>](#refer-anchor-2)
+`projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original version, which are listed below:
 
-`Readout_error_correction_functions.py` are made up with several functions which exactly or approximately correct the readout errors to accurately compute the entanglement witnesses, such as `Stab_prod_func`, `Stab_prod_exact_correct_func` and `Stab_prod_approx_correct_func`.
+`abstractprojmpo.jl` realizes all the methods to contract the MPO H^2 with MPS psi
 
-`1D_cluster_state_stabilizer.py` is the main processing script, which controls the system size of entangled states, the number of running rounds and correction modes, etc. The whole program can be launched by the terminal command:
+`dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
 
 `python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
 
