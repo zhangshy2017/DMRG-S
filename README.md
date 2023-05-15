@@ -1,6 +1,6 @@
 # Extracting Quantum Many-Body Scarred Eigenstates with Matrix Product States
 
-This program numerically evaluates the predicted value of entanglement witnesses for the one-dimensional linear cluster state, with the method of random Clifford circuit simulations. The error correction method in [<sup>1</sup>](#refer-anchor-1) is adopted to mitigate the readout errors.
+This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language.
 
 The source code consists of three Python scripts:
 - `Clifford_circuit_operations.py`
@@ -30,4 +30,4 @@ The output files are stored in the fold `data` in the form of `.csv` with the na
 - [1] S.-Y. Zhang, D. Yuan, T. Iadecola, S. Xu, and D.-L. Deng, Extracting quantum many-body scarred eigenstates with matrix product states (2022), arXiv:2211.05140.
 
 <div id="refer-anchor-2"></div>
-- [2] M. Fishman, S. R. White, and E. M. Stoudenmire, “The ITensor Software Library for Tensor Network Calculations,” SciPost Phys. Codebases , 4 (2022).
+- [2] M. Fishman, S. R. White, and E. M. Stoudenmire, The ITensor Software Library for Tensor Network Calculations, SciPost Phys. Codebases , 4 (2022).
