@@ -1,4 +1,4 @@
-# Generation and Verification of Genuine Multipartite Entanglement on a Superconducting Quantum Processor
+# Extracting Quantum Many-Body Scarred Eigenstates with Matrix Product States
 
 This program numerically evaluates the predicted value of entanglement witnesses for the one-dimensional linear cluster state, with the method of random Clifford circuit simulations. The error correction method in [<sup>1</sup>](#refer-anchor-1) is adopted to mitigate the readout errors.
 
@@ -27,7 +27,7 @@ The output files are stored in the fold `data` in the form of `.csv` with the na
 
 ## References:
 <div id="refer-anchor-1"></div>
-- [1] Correcting detection errors in quantum state engineering through data processing, Chao Shen and Lu-Ming Duan, New Journal of Physics 14,053053 (2012)
+- [1] S.-Y. Zhang, D. Yuan, T. Iadecola, S. Xu, and D.-L. Deng, Extracting quantum many-body scarred eigenstates with matrix product states (2022), arXiv:2211.05140.
 
 <div id="refer-anchor-2"></div>
-- [2] Improved simulation of stabilizer circuits, Scott Aaronson and Daniel Gottesman, Phys. Rev. A70, 052328 (2004)
+- [2] M. Fishman, S. R. White, and E. M. Stoudenmire, “The ITensor Software Library for Tensor Network Calculations,” SciPost Phys. Codebases , 4 (2022).
