@@ -9,7 +9,7 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 
 `projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original version in folder "src/mps/", which are listed below:
 
-`abstractprojmpo.jl` add some new methods to contract the MPO $(H-\lambda)^2$ with MPS psi
+`abstractprojmpo.jl` adds some new methods to contract local tensors between the MPO $(H-\xi)^2$ and MPS $|psi\rangle$ in order to obtain $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ and $\tilde{\psi}_{t-1}^{[i,i+1]}$ (#refer-anchor-1). The original function "product" is overloaded to implement the product between $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ and $\psi_t^{[i,i+1]}$.
 
 `dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
 
