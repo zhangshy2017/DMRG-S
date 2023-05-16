@@ -10,11 +10,11 @@ let
    maxD = 200
    initial_energy = -1.6
    U = 1000
-   nk=100
+   nk=20
 
    varray = zeros(1,nk)
 
-   minvalue = 0.01
+   minvalue = 0.1
    stop_value = 0.0000000001
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
@@ -54,16 +54,21 @@ let
 
    H2 = H  - (initial_energy)*H0
 
-   sweeps = Sweeps(1)
-   maxdim!(sweeps, maxD,maxD)
-   cutoff!(sweeps, 1E-16)
-
-   @show sweeps
 
    @printf("------------------------------------\n")
    psi = copy(psi0)
    for k=1:nk
        @show k
+       if k<5
+          maxDim = 50
+       else
+          maxDim = maxD
+       end
+       sweeps = Sweeps(1)
+       maxdim!(sweeps, maxDim,maxDim)
+       cutoff!(sweeps, 1E-16)
+       @show sweeps
+
        psi = simps(H2,H,H1,psi0,psi0, sweeps)
        psi0 = copy(psi)
 
@@ -113,16 +118,16 @@ let
 
        varray[k]=varlist
 
-       if (varlist<=minvalue)
+       if (varlist<0.1)&&(varlist<=minvalue)
+                @show "update"
 	        H2 = H - Elist*H0
-	        minvalue = varlist
+	       # minvalue = varlist
        end
 
 
        f = h5open(string("N",string(N),"_",string(k),".h5"),"w")
        write(f,"psi",psi)
        close(f)
-       minvalue = varlist
        if varlist<stop_value
            break
        end

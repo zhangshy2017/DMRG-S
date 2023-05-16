@@ -6,9 +6,9 @@ using ITensors.HDF5
 
 
 let
-   N = 30  # system size
+   N = 20  # system size
    maxD = 200 # max bindimension
-   initial_energy = -1.6 # intial setting of target energy
+   initial_energy = -1.3 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
@@ -61,16 +61,21 @@ let
    # define shift-inverse MPO H2
    H2 = H  - (initial_energy)*H0
 
-   sweeps = Sweeps(1) #sweep number
-   maxdim!(sweeps, maxD,maxD)
-   cutoff!(sweeps, 1E-16)
-
-   @show sweeps
-
    @printf("------------------------------------\n")
    psi = copy(psi0)
    for k=1:nk
        @show k
+       if k<5
+          maxDim = 50
+       else
+          maxDim = maxD
+       end
+       sweeps = Sweeps(1)
+       maxdim!(sweeps, maxDim,maxDim)
+       cutoff!(sweeps, 1E-16)
+       @show sweeps
+
+
        # optimization step
        psi = dmrgs(H2,H0,H,H1,psi0,psi0, sweeps)
        psi0 = copy(psi)
