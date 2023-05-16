@@ -2,7 +2,7 @@
 
 This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
 
-The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package. The source code consists of three Julia scripts:
+The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package (for example, ITensors v0.3.24). The source code consists of three Julia scripts:
 - `projmpo.jl`
 - `abstractprojmpo.jl`
 - `dmrgs.jl`
@@ -16,6 +16,10 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 `dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
 
 Usage:
+
+1. Bakeup the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder "src/mps/" of the ITensors pakage and replace them with the revised version.
+2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line 'include("mps/dmrgs.jl")' in the file "src/mps/ITensors.jl".
+3. Add methods "dmrgs," and "simps,".
 
 
 `python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
