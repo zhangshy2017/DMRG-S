@@ -7,13 +7,16 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 - `abstractprojmpo.jl`
 - `dmrgs.jl`
 
-`projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original version in folder "src/mps/", which are listed below:
+`projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original files in the folder "src/mps/" of the ITensors pakage, which are listed below:
 
-`projmpo.jl` include “product_label” in the struct ProjMPO to overload the "product" function in `abstractprojmpo.jl`.
+`projmpo.jl` include “product_label” in the struct ProjMPO to overload the "product" function in `abstractprojmpo.jl`;
 
-`abstractprojmpo.jl` include some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi\rangle$ in order to obtain $\mathcal{A}^{\[i,i+1\]}$ and $\tilde{\psi}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function "product" is overloaded to implement the opreration for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector. 
+`abstractprojmpo.jl` include some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi\rangle$ in order to obtain $\mathcal{A}^{\[i,i+1\]}$ and $\tilde{\psi}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function "product" is overloaded to implement the opreration for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
 
 `dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
+
+Usage:
+
 
 `python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
 
