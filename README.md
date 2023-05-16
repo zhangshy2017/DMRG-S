@@ -2,28 +2,34 @@
 
 This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
 
-The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package. The source code consists of three Python scripts:
+The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package (for example, ITensors v0.3.24). The source code consists of three Julia scripts:
 - `projmpo.jl`
 - `abstractprojmpo.jl`
 - `dmrgs.jl`
 
-`projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original version, which are listed below:
+`projmpo.jl` and `abstractprojmpo.jl` include some minor changes compared with the original files in the folder "src/mps/" of the ITensors pakage, which are listed below:
 
-`abstractprojmpo.jl` realizes all the methods to contract the MPO H^2 with MPS psi
+`projmpo.jl` include “product_label” in the struct ProjMPO to overload the "product" function in `abstractprojmpo.jl`;
+
+`abstractprojmpo.jl` include some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi\rangle$ in order to obtain $\mathcal{A}^{\[i,i+1\]}$ and $\tilde{\psi}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function "product" is overloaded to implement the opreration for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
 
 `dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
 
-`python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
+Instructions for setup and usage:
 
-where `Correction mode` has 4 options:
-- `Both` for the exact and approximate readout error correction
-- `Exact` only for the exact readout error correction
-- `Approx` only for the approximate readout error correction
-- `None` for no readout error correction
+1. Bakeup the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder "src/mps/" of the ITensors pakage and replace them with the revised version.
+2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/ITensors.jl" of the ITensors pakage.
+3. Add methods `dmrgs,` and `simps,` in the file "src/exports.jl" of the ITensors pakage.
+4. Using `julia PXP_dmrgs.jl` in the terminal to run the code.
 
-The single-qubit, two-qubit and readout error rates can be changed at the beginning part of `1D_cluster_state_stabilizer.py` (later need to be encapsulated).
+where `PXP_dmrgs.jl` include parameters to be adjusted:
+- `initial_energy$` for the initial setting of  $\xi_0$
+- `psi0` for the initial setting of  $|\psi_0\rangle$
+- `N` is system size
+- `maxD` sets the maximum bond dimension
+- `minvalue` sets threshold for updating the $\xi_0$
 
-The output files are stored in the fold `data` in the form of `.csv` with the naming rules: `1D_cluster_state_n=<Number of entangled qubits>_<0(1) stands for the product of even(odd) stabilizer projectors>mod2_<Correction mode>`.
+The output files are stored in the fold `data` in the form of `.h5` to store the MPS during the optimization.
 
 ## References:
 <div id="refer-anchor-1"></div>
