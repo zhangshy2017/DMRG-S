@@ -15,7 +15,7 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 
 `dmrgs.jl` contain the main function of DMRG-S and SIMPS method with two-site optimization.
 
-Usage:
+Instructions for setup and usage:
 
 1. Bakeup the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder "src/mps/" of the ITensors pakage and replace them with the revised version.
 2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/ITensors.jl" of the ITensors pakage.
