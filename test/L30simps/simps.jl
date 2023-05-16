@@ -120,7 +120,8 @@ let
 
        if (varlist<0.1)&&(varlist<=minvalue)
                 @show "update"
-	        H2 = H - Elist*H0
+	       # H2 = H - Elist*H0
+                H2 = H - (Elist-(-1)^k*varlist)*H0
 	       # minvalue = varlist
        end
 

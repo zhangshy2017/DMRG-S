@@ -126,7 +126,8 @@ let
        varray[k]=varlist
 
        if (varlist<=minvalue)
-	        H2 = H - Elist*H0
+                H2 = H - (Elist-(-1)^k*varlist)*H0
+	        #H2 = H - Elist*H0
 	        minvalue = varlist
        end
 
