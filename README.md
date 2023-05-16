@@ -18,8 +18,8 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 Usage:
 
 1. Bakeup the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder "src/mps/" of the ITensors pakage and replace them with the revised version.
-2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/mps/ITensors.jl".
-3. Add methods "dmrgs," and "simps,".
+2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/ITensors.jl".
+3. Add methods `dmrgs,` and `simps,` in the file "src/exports.jl" .
 
 
 `python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
