@@ -18,21 +18,18 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 Usage:
 
 1. Bakeup the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder "src/mps/" of the ITensors pakage and replace them with the revised version.
-2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/ITensors.jl".
-3. Add methods `dmrgs,` and `simps,` in the file "src/exports.jl" .
+2. Place the file `dmrgs.jl` under the folder "src/mps/"  and add a line `include("mps/dmrgs.jl")` in the file "src/ITensors.jl" of the ITensors pakage.
+3. Add methods `dmrgs,` and `simps,` in the file "src/exports.jl" of the ITensors pakage.
+4. Using `julia PXP_dmrgs.jl` in the terminal to run the code.
 
+where `PXP_dmrgs.jl` include parameters to be adjusted:
+- `initial_energy$` for the initial setting of  $\xi_0$
+- `psi0` for the initial setting of  $|\psi_0\rangle$
+- `N` is system size
+- `maxD` sets the maximum bond dimension
+- `minvalue` sets threshold for updating the $\xi_0$
 
-`python3 1D_cluster_state_stabilizer.py <Number of entangled qubits> <Correction mode>`
-
-where `Correction mode` has 4 options:
-- `Both` for the exact and approximate readout error correction
-- `Exact` only for the exact readout error correction
-- `Approx` only for the approximate readout error correction
-- `None` for no readout error correction
-
-The single-qubit, two-qubit and readout error rates can be changed at the beginning part of `1D_cluster_state_stabilizer.py` (later need to be encapsulated).
-
-The output files are stored in the fold `data` in the form of `.csv` with the naming rules: `1D_cluster_state_n=<Number of entangled qubits>_<0(1) stands for the product of even(odd) stabilizer projectors>mod2_<Correction mode>`.
+The output files are stored in the fold `data` in the form of `.h5` to store the MPS during the optimization.
 
 ## References:
 <div id="refer-anchor-1"></div>
