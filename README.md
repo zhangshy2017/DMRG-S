@@ -13,8 +13,8 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 
 `projmpo.jl` and `abstractprojmpo.jl` include some changes to the original files in the folder "src/mps/" of the ITensors pakage, which are listed below:
 
-- `projmpo.jl` includes “product_label” in the struct ProjMPO to overload the "product" function in `abstractprojmpo.jl`;
-- `abstractprojmpo.jl` includes some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi\rangle$ in order to obtain $\mathcal{A}^{\[i,i+1\]}$ and $\tilde{\psi}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function "product" is overloaded to implement the operation for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
+- `projmpo.jl` includes “product_label” in the struct ProjMPO to overload the `product` function in `abstractprojmpo.jl`;
+- `abstractprojmpo.jl` includes some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi\rangle$ in order to obtain $\mathcal{A}^{\[i,i+1\]}$ and $\tilde{\psi}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function `product` is overloaded to implement the operation for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
 
 `dmrgs.jl` contains the main function of DMRG-S and SIMPS method with two-site DMRG optimization.
 
