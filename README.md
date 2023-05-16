@@ -21,7 +21,7 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 ## Instructions for setup and usage:
 
 1. Replace the original files `projmpo.jl` and `abstractprojmpo.jl` in the folder `src/mps/` of the ITensors pakage with our revised version.
-2. Add the file `dmrgs.jl` into the folder "src/mps/". Then add a line `include("mps/dmrgs.jl")` in the file `src/ITensors.jl` of the ITensors pakage.
+2. Add the file `dmrgs.jl` into the folder `src/mps/`. Then add a line `include("mps/dmrgs.jl")` in the file `src/ITensors.jl` of the ITensors pakage.
 3. Add the methods `dmrgs` and `simps` in the file `src/exports.jl` of the ITensors pakage.
 4. Using `julia PXP_dmrgs.jl` in the terminal to run the code.
 
