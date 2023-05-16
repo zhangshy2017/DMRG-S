@@ -1,8 +1,8 @@
 # Extracting Quantum Many-Body Scarred Eigenstates with Matrix Product States
 
-This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates. The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
+This repository provides the source code to implement the DMRG-S algorithm proposed in [<sup>1</sup>](#refer-anchor-1), which accurately extracts quantum many-body scarred eigenstates (a small fraction of non-thermal excited eigenstates of non-integrable Hamiltomians). The DMRG-S algorithm can access system sizes far beyond the scope of exact diagonalization and assist analytical studies in discovering exact MPS representations of new scars for generic Hamiltonians. 
 
-The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package (for example, ITensors v0.3.24). The source code consists of three Julia scripts:
+The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](#refer-anchor-2) in Julia programming language. The environment setup requires the installation of the `ITensor.jl` package (with version $\ge$v0.3.24). The source code consists of three Julia scripts:
 - `projmpo.jl`
 - `abstractprojmpo.jl`
 - `dmrgs.jl`
