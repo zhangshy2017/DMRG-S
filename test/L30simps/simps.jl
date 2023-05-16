@@ -6,9 +6,9 @@ using ITensors.HDF5
 
 
 let
-   N = 20
-   maxD = 50
-   initial_energy = -1.4
+   N = 30
+   maxD = 200
+   initial_energy = -1.6
    U = 1000
    nk=100
 
@@ -108,12 +108,12 @@ let
        Elist1 = inner(psi',H1,psi)
        varlist = inner(H,psi,H,psi) - Elist^2
        @printf("PXP E variance=%.12f,    E=%.12f\n",varlist ,Elist)
-       @printf("EXP E=%.12f\n" ,Elist1)
+       @printf("NN =%.12f\n" ,Elist1)
 
 
        varray[k]=varlist
 
-       if (varlist < 0.1)&&(varlist<=minvalue)
+       if (varlist<=minvalue)
 	        H2 = H - Elist*H0
 	        minvalue = varlist
        end
