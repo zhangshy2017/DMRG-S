@@ -131,7 +131,7 @@ let
        end
 
        #save optimized psi
-       f = h5open(string("../data/N",string(N),"_",string(k),".h5"),"w")
+       f = h5open(string("data/N",string(N),"_",string(k),".h5"),"w")
        write(f,"psi",psi)
        close(f)
        
