@@ -30,7 +30,8 @@ where `PXP_dmrgs.jl` include several adjustable parameters:
 - `psi0` for the initial setting of  $|\psi_0\rangle$
 - `N` is the system size
 - `maxD` sets the maximum bond dimension
-- `minvalue` sets threshold for the variance to update the $\xi_t$
+- `minD` sets the minimum bond dimension to start with
+- `var_thre` sets threshold for the variance to update the $\xi_t$
 
 The output files are stored in the fold `data` in the form of `.h5` to store the MPSs during the optimization.
 
