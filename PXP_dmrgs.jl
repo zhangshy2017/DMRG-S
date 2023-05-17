@@ -8,14 +8,14 @@ using ITensors.HDF5
 let
    N = 20  # system size
    maxD = 200 # max bindimension
-   initial_energy = -1.3 # intial setting of target energy
+   initial_energy = -1.5 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
    varray = zeros(1,nk)
 
    minvalue = 0.01
-   stop_value = 0.00000001 #threshold for stopping
+   stop_value = 0.0000000001 #threshold for stopping
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
 
@@ -66,7 +66,7 @@ let
    for k=1:nk
        @show k
        if k<5
-          maxDim = 50
+          maxDim = 20
        else
           maxDim = maxD
        end
@@ -126,9 +126,10 @@ let
        varray[k]=varlist
 
        if (varlist<=minvalue)
-                H2 = H - (Elist-(-1)^k*varlist)*H0
+                H2 = H - (Elist-(-1)^k*3*varlist)*H0 #staggered update to avoid local minima
 	        #H2 = H - Elist*H0
 	        minvalue = varlist
+                @printf("updated target energy\n")
        end
 
        #save optimized psi
