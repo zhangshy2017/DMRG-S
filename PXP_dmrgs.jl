@@ -8,13 +8,13 @@ using ITensors.HDF5
 let
    N = 20  # system size
    maxD = 200 # max bindimension
-   initial_energy = -1.5 # intial setting of target energy
+   initial_energy = -1.6 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
    varray = zeros(1,nk)
 
-   minvalue = 0.01
+   minvalue = 0.1
    stop_value = 0.0000000001 #threshold for stopping
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
