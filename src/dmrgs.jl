@@ -1,10 +1,14 @@
 """
-   dmrgs(H::MPO,H0::MPO,H1::MPO,H2::MPO,psi0::MPS, psi1::MPS, sweeps::Sweeps; kwargs...)
+   dmrgs(H::MPO,H0::MPO,H1::MPO,H2::MPO,psi0::MPS, sweeps::Sweeps; kwargs...)
                     
 Use the DMRG-S algorithm to extract quantum many-body scarred eigenstates for generic Hamiltonians.
-The MPS `psi0` is used to initialize the MPS to be optimized,
+The MPS `psi0` is used to initialize the MPS to be optimized
+The MPO `H` is the shift MPO (Ĥ-ξ), ξ is the target energy
+The MPO `H0` is the Identity MPO Î
+The MPO `H1` is the Hamiltonian MPO Ĥ used to evaluate the energy E and variance σ during the optimization
+The MPO `H2` is any other obsevable MPO which need to evaluate during the optimization	
 and the `sweeps` object determines the parameters used to 
-control the DMRG algorithm.
+control the DMRG-S algorithm.
 
 Returns:
 * `psi::MPS` - optimized MPS
@@ -12,7 +16,7 @@ Returns:
 
 
 
-function dmrgs(H::MPO,H0::MPO,H1::MPO,H2::MPO,psi0::MPS, psi1::MPS, sweeps::Sweeps; kwargs...)
+function dmrgs(H::MPO,H0::MPO,H1::MPO,H2::MPO,psi0::MPS, sweeps::Sweeps; kwargs...)
   check_hascommoninds(siteinds, H, psi0)
   check_hascommoninds(siteinds, H, psi0')
   # Permute the indices to have a better memory layout
@@ -26,12 +30,29 @@ function dmrgs(H::MPO,H0::MPO,H1::MPO,H2::MPO,psi0::MPS, psi1::MPS, sweeps::Swee
   PHH.product_label=2
   Z2H = ProjMPO(H0)
   NN = ProjMPO(H2)
-  return dmrgs(PHH,PHH0,PH0,Z2H,NN,psi0,psi1,sweeps;kwargs...)
+  return dmrgs(PHH,PHH0,PH0,Z2H,NN,psi0,sweeps;kwargs...)
 end
 
 
 
-function simps(H::MPO,H1::MPO,H2::MPO,psi0::MPS, psi1::MPS, sweeps::Sweeps; kwargs...)
+"""
+   simps(H::MPO,H1::MPO,H2::MPO,psi0::MPS, sweeps::Sweeps; kwargs...)
+
+                    
+Use the SIMPS algorithm to obtaining quantum many-body localized eigenstates for MBL phases.
+The MPS `psi0` is used to initialize the MPS to be optimized,
+and the `sweeps` object determines the parameters used to 
+control the DMRG algorithm.
+
+Returns:
+* `psi::MPS` - optimized MPS
+"""
+
+
+
+
+
+function simps(H::MPO,H1::MPO,H2::MPO,psi0::MPS, sweeps::Sweeps; kwargs...)
   check_hascommoninds(siteinds, H, psi0)
   check_hascommoninds(siteinds, H, psi0')
   # Permute the indices to have a better memory layout
@@ -45,13 +66,13 @@ function simps(H::MPO,H1::MPO,H2::MPO,psi0::MPS, psi1::MPS, sweeps::Sweeps; kwar
   PHH.product_label=2
   Z2H = ProjMPO(H)
   NN = ProjMPO(H2)
-  return simps(PHH,PHH0,PH0,Z2H,NN,psi0,psi1,sweeps;kwargs...)
+  return simps(PHH,PHH0,PH0,Z2H,NN,psi0,sweeps;kwargs...)
 end
 
 
 
 
-function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, psi1::MPS, sweeps::Sweeps; kwargs...)
+function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
 
   which_decomp::Union{String, Nothing} = get(kwargs, :which_decomp, nothing)
   svd_alg::String = get(kwargs, :svd_alg, "recursive")
@@ -80,7 +101,7 @@ function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, psi1::MPS, sweeps::Sweeps; kwa
 
   N = length(psi0)
   psi = copy(psi0)
-  psi2 = copy(psi1)
+  psi2 = copy(psi0)
 
 
 
@@ -205,7 +226,7 @@ end
 
 
 
-function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, psi1::MPS, sweeps::Sweeps; kwargs...)
+function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
 
   which_decomp::Union{String, Nothing} = get(kwargs, :which_decomp, nothing)
   svd_alg::String = get(kwargs, :svd_alg, "recursive")
@@ -232,7 +253,7 @@ function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, psi1::MPS, sweeps::Sweeps; kwa
 
   N = length(psi0)
   psi = copy(psi0)
-  psi2 = copy(psi1)
+  psi2 = copy(psi0)
 
 
 

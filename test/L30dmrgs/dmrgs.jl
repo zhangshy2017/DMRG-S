@@ -69,7 +69,7 @@ let
        cutoff!(sweeps, 1E-16)
        @show sweeps
 
-       psi = dmrgs(H2,H0,H,H1,psi0,psi0, sweeps)
+       psi = dmrgs(H2,H0,H,H1,psi0, sweeps)
        psi0 = copy(psi)
 
 

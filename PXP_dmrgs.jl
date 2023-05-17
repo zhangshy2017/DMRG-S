@@ -7,14 +7,15 @@ using ITensors.HDF5
 
 let
    N = 20  # system size
-   maxD = 200 # max bindimension
+   maxD = 200 # maximum bond imension
+   minD = 20 # minimum bond imension to start with
    initial_energy = -1.6 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
    varray = zeros(1,nk)
 
-   minvalue = 0.1
+   var_thre = 0.1 #threshold for updating ξ
    stop_value = 0.0000000001 #threshold for stopping
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
@@ -58,26 +59,26 @@ let
    states = [isodd(numlist[n]) ? "Up" : "Dn" for n=1:N]
    psi0 = productMPS(sites,states) 
 
-   # define shift-inverse MPO H2
+   # define shift MPO H2
    H2 = H  - (initial_energy)*H0
 
    @printf("------------------------------------\n")
    psi = copy(psi0)
    for k=1:nk
        @show k
-       if k<5
-          maxDim = 20
+       if k<5          #number adjustable
+          maxDim = minD  
        else
           maxDim = maxD
        end
-       sweeps = Sweeps(1)
+       sweeps = Sweeps(1) #number adjustable
        maxdim!(sweeps, maxDim,maxDim)
        cutoff!(sweeps, 1E-16)
        @show sweeps
 
 
        # optimization step
-       psi = dmrgs(H2,H0,H,H1,psi0,psi0, sweeps)
+       psi = dmrgs(H2,H0,H,H1,psi0, sweeps)
        psi0 = copy(psi)
 
        #projecting back to restricted subspace
@@ -115,7 +116,7 @@ let
 
        psi =copy(psi0)
 
-
+       # evaluate energy and variance
        Elist = inner(psi',H,psi)
        Elist1 = inner(psi',H1,psi)
        varlist = inner(H,psi,H,psi) - Elist^2
@@ -125,17 +126,17 @@ let
 
        varray[k]=varlist
 
-       if (varlist<=minvalue)
+       if (varlist<=var_thre)
                 H2 = H - (Elist-(-1)^k*3*varlist)*H0 #staggered update to avoid local minima
-	        #H2 = H - Elist*H0
-	        minvalue = varlist
+	        #H2 = H - Elist*H0 
+	        var_thre = varlist
                 @printf("updated target energy\n")
        end
 
        #save optimized psi
-       f = h5open(string("data/N",string(N),"_",string(k),".h5"),"w")
-       write(f,"psi",psi)
-       close(f)
+#       f = h5open(string("data/N",string(N),"_",string(k),".h5"),"w")
+#       write(f,"psi",psi)
+#       close(f)
        
        if varlist<stop_value
            break
@@ -155,8 +156,8 @@ let
 
 
    @printf("------------------------\n")
-   @printf("PXP E variance=%.12f,    E=%.12f\n",varlist ,Elist)
-   @printf("E=%.12f\n" ,Elist1)
+   @printf("Final PXP E variance=%.12f,    E=%.12f\n",varlist ,Elist)
+   @printf("Final NNint=%.12f\n" ,Elist1)
 
 
 

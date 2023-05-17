@@ -69,7 +69,7 @@ let
        cutoff!(sweeps, 1E-16)
        @show sweeps
 
-       psi = simps(H2,H,H1,psi0,psi0, sweeps)
+       psi = simps(H2,H,H1,psi0, sweeps)
        psi0 = copy(psi)
 
 

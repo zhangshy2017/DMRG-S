@@ -64,7 +64,7 @@ let
    psi = copy(psi0)
    for k=1:nk
        @show k
-       psi = simps(H2,H,H1,psi0,psi0, sweeps)
+       psi = simps(H2,H,H1,psi0, sweeps)
        psi0 = copy(psi)
 
 
