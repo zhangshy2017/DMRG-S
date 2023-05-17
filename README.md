@@ -13,10 +13,10 @@ The DMRG-S algorithm is implemented based on the ITensor library [<sup>2</sup>](
 
 `projmpo.jl` and `abstractprojmpo.jl` include some changes to the original files in the folder "src/mps/" of the ITensors pakage, which are listed below:
 
-- `projmpo.jl` includes “product_label” in the struct ProjMPO to overload the `product` function in `abstractprojmpo.jl`;
-- `abstractprojmpo.jl` includes some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi_t\rangle$ in order to obtain $\mathcal{A_t}^{\[i,i+1\]}$ and $\tilde{\psi_t}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function `product` is overloaded to implement the operation for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
+- `projmpo.jl` includes “product_label” in the struct ProjMPO to add another mode for the `product` function in `abstractprojmpo.jl`;
+- `abstractprojmpo.jl` includes some new methods to contract local tensors from MPO $(H-\xi)^2$ and MPS $|\psi_t\rangle$ in order to obtain $\mathcal{A_t}^{\[i,i+1\]}$ and $\tilde{\psi_t}^{[i,i+1]}$ [<sup>1</sup>](#refer-anchor-1). In addition, the original function `product` is added with another mode to implement the operation for the matrix $\mathcal{A}_{t,\text{eff}}^{[i,i+1]}$ mutiplying a vector;
 
-`dmrgs.jl` contains the main function of DMRG-S and SIMPS method with two-site DMRG optimization.
+`dmrgs.jl` contains the main function of DMRG-S and SIMPS method with two-site optimization.
 
 ## Instructions for setup and usage:
 
@@ -30,7 +30,8 @@ where `PXP_dmrgs.jl` include several adjustable parameters:
 - `psi0` for the initial setting of  $|\psi_0\rangle$
 - `N` is the system size
 - `maxD` sets the maximum bond dimension
-- `minvalue` sets threshold for the variance to update the $\xi_t$
+- `minD` sets the minimum bond dimension to start with
+- `var_thre` sets threshold for the variance to update the $\xi_t$
 
 The output files are stored in the fold `data` in the form of `.h5` to store the MPSs during the optimization.
 
