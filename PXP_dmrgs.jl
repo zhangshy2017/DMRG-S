@@ -9,7 +9,7 @@ let
    N = 20  # system size
    maxD = 200 # maximum bond imension
    minD = 20 # minimum bond imension to start with
-   initial_energy = -1.2 # intial setting of target energy
+   initial_energy = -1.1 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
