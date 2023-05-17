@@ -9,7 +9,7 @@ let
    N = 20  # system size
    maxD = 200 # maximum bond imension
    minD = 20 # minimum bond imension to start with
-   initial_energy = -1.6 # intial setting of target energy
+   initial_energy = -1.2 # intial setting of target energy
    U = 1000 #Redberg interaction
    nk=100 #maximum optimization step
 
@@ -54,10 +54,11 @@ let
    ampo0 += 1.0,"Id",1
    H0 = MPO(ampo0, sites)
 
-   # initial setting of psi
+   # initial setting of psi 
    numlist = 1:N
-   states = [isodd(numlist[n]) ? "Up" : "Dn" for n=1:N]
+   states = [isodd(numlist[n]) ? "Up" : "Dn" for n=1:N]  #Z2 state
    psi0 = productMPS(sites,states) 
+   #psi0 = randomMPS(sites,states,2) # random intialization
 
    # define shift MPO H2
    H2 = H  - (initial_energy)*H0
@@ -107,7 +108,7 @@ let
        ampo1 += 1.0,"Id",1
        H_tmp = MPO(ampo1, sites)
 
-       temp = contract(H_tmp,psi0,maxdim = maxD, normalize=true)
+       temp = contract(H_tmp,psi0,maxdim = maxDim, normalize=true)
        setprime!(temp,0;plev=1)
 
        psi0 = copy(temp)

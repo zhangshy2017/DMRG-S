@@ -8,13 +8,14 @@ using ITensors.HDF5
 let
    N = 30
    maxD = 200
+   minD = 50
    initial_energy = -1.6
    U = 1000
    nk=30
 
    varray = zeros(1,nk)
 
-   minvalue = 0.1
+   var_thre = 0.1
    stop_value = 0.0000000001
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
@@ -60,7 +61,7 @@ let
    for k=1:nk
        @show k
        if k<5
-          maxDim = 50
+          maxDim = minD
        else
           maxDim = maxD
        end
@@ -118,11 +119,11 @@ let
 
        varray[k]=varlist
 
-       if (varlist<0.1)&&(varlist<=minvalue)
+       if (varlist<=var_thre)
                 @show "update"
                 H2 = H - (Elist-(-1)^k*varlist)*H0
 	   #     H2 = H - Elist*H0
-	   #     minvalue = varlist
+	   #     var_thre = varlist
        end
 
 

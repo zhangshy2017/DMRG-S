@@ -14,7 +14,6 @@ let
 
    varray = zeros(1,nk)
 
-   minvalue = 0.01
    stop_value = 0.0000000001
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
@@ -116,7 +115,7 @@ let
        f = h5open(string("N",string(N),"_",string(k),".h5"),"w")
        write(f,"psi",psi)
        close(f)
-       minvalue = varlist
+       
        if varlist<stop_value
            break
        end
