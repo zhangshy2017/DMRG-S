@@ -128,11 +128,11 @@ function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
        sw_time = @elapsed begin
        for (b, ha) in sweepnext(N)
             step += 1     
-            if isfile("STOP_DMRG")
-                 rm("STOP_DMRG")
+            if isfile("STOP_DMRGS")
+                 rm("STOP_DMRGS")
                  isdone = true
             end
-            @timeit_debug timer "dmrg: position!" begin
+            @timeit_debug timer "dmrgs: position!" begin
             position2!(PHH, psi, b)
             position2!(PHH0, psi, b)
             position!(PH0, psi, b)
@@ -141,7 +141,7 @@ function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
             end
 
 
-            @timeit_debug timer "dmrg: psi[b]*psi[b+1]" begin
+            @timeit_debug timer "dmrgs: psi[b]*psi[b+1]" begin
             phi = psi[b] * psi[b+1]
             phiZ2 = psi2[b] * psi2[b+1]
             end
@@ -149,7 +149,7 @@ function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
 
             bb = product2(Z2H,dag(prime(phiZ2)))
             
-            @timeit_debug timer "dmrg: eigsolve" begin
+            @timeit_debug timer "dmrgs: linsolve" begin
             vec, info =  linsolve(PHH, bb, phi, ishermitian = ishermitian,
                                    maxiter = eigsolve_maxiter,
                                    krylovdim = eigsolve_krylovdim,
@@ -180,7 +180,7 @@ function dmrgs(PHH,PHH0, PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
  
             
             
-            @timeit_debug timer "dmrg: replacebond!" begin
+            @timeit_debug timer "dmrgs: replacebond!" begin
             spec = replacebond!(psi, b, phi; maxdim = maxdim(sweeps, sw),
                                              mindim = mindim(sweeps, sw),
                                              cutoff = cutoff(sweeps, sw),
@@ -292,7 +292,7 @@ function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
             end
 
 
-            @timeit_debug timer "dmrg: psi[b]*psi[b+1]" begin
+            @timeit_debug timer "simps: psi[b]*psi[b+1]" begin
             phi = psi[b] * psi[b+1]
             phiZ2 = psi2[b] * psi2[b+1]
             end
@@ -300,7 +300,7 @@ function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
 
             bb = product2(Z2H,dag(prime(phiZ2)))
             
-            @timeit_debug timer "dmrg: eigsolve" begin
+            @timeit_debug timer "simps: eigsolve" begin
             vec, info =  linsolve(PHH, bb, phi, ishermitian = ishermitian,
                                    maxiter = eigsolve_maxiter,
                                    krylovdim = eigsolve_krylovdim,
@@ -325,7 +325,7 @@ function simps(PHH, PHH0,PH0, Z2H, NN, psi0::MPS, sweeps::Sweeps; kwargs...)
  
             
             
-            @timeit_debug timer "dmrg: replacebond!" begin
+            @timeit_debug timer "simps: replacebond!" begin
             spec = replacebond!(psi, b, phi; maxdim = maxdim(sweeps, sw),
                                              mindim = mindim(sweeps, sw),
                                              cutoff = cutoff(sweeps, sw),

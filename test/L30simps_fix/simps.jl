@@ -112,9 +112,9 @@ let
 
        varray[k]=varlist
 
-       f = h5open(string("N",string(N),"_",string(k),".h5"),"w")
-       write(f,"psi",psi)
-       close(f)
+ #      f = h5open(string("N",string(N),"_",string(k),".h5"),"w")
+ #      write(f,"psi",psi)
+ #      close(f)
        
        if varlist<stop_value
            break
