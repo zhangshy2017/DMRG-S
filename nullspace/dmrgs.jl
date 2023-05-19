@@ -11,7 +11,7 @@ let
    U = 1000
    nk=200
 
-   nth=
+   nth=1
    initial_energy = 0.01*(2*rand()-1.0)
 
 
