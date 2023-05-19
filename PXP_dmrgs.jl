@@ -16,7 +16,7 @@ let
    varray = zeros(1,nk)
 
    var_thre = 0.1 #threshold for updating ξ
-   stop_value = 0.0000000001 #threshold for stopping
+   stop_value = 1e-10 #threshold for stopping
 
    sites = siteinds("S=1/2",N,conserve_qns=false)
 
